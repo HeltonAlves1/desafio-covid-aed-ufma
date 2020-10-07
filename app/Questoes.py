@@ -1,13 +1,23 @@
 # IMPORTAÇÕES
 import csv
 
+# COLUNAS EM covid19_ma.csv : epidemiological_week,date,order_for_place,state,city,city_ibge_code,place_type,last_available_confirmed,last_available_confirmed_per_100k_inhabitants,new_confirmed,last_available_deaths,new_deaths,last_available_death_rate,estimated_population_2019,is_last,is_repeated
+
 
 # QUESTÃO 1 #
 def Questao1():
     arquivo = open('.\storage\covid19_ma.csv', encoding="utf8")
     linhas = csv.reader(arquivo)
+    numMaior100MilHabitantes = 0
+    next(linhas)
     for linha in linhas:
-        print(linha)
+        if(not(linha[8] == '')):
+            parser = int(float(linha[8]))
+            if(parser > numMaior100MilHabitantes):
+                numMaior100MilHabitantes = parser
+                cidadeMaisCasos = linha[4]
+    print(cidadeMaisCasos + ' com aproximadamente ' + str(numMaior100MilHabitantes) + ' casos confirmados por 100 mil habitantes')
+
 # FIM DA QUESTÃO #
 
 # QUESTÃO 2 #
