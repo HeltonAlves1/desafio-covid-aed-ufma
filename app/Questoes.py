@@ -4,19 +4,21 @@ import csv
 # COLUNAS EM covid19_ma.csv : epidemiological_week,date,order_for_place,state,city,city_ibge_code,place_type,last_available_confirmed,last_available_confirmed_per_100k_inhabitants,new_confirmed,last_available_deaths,new_deaths,last_available_death_rate,estimated_population_2019,is_last,is_repeated
 
 
-# QUESTÃO 1 #
+# QUESTÃO 1: Qual foi o dia com maior número de novos casos? #
+
 def Questao1():
     arquivo = open('.\storage\covid19_ma.csv', encoding="utf8")
     linhas = csv.reader(arquivo)
-    numMaior100MilHabitantes = 0
     next(linhas)
+    numMaior100MilHabitantes = 0
     for linha in linhas:
         if(not(linha[8] == '')):
             parser = int(float(linha[8]))
             if(parser > numMaior100MilHabitantes):
                 numMaior100MilHabitantes = parser
                 cidadeMaisCasos = linha[4]
-    print(cidadeMaisCasos + ' com aproximadamente ' + str(numMaior100MilHabitantes) + ' casos confirmados por 100 mil habitantes')
+    print(cidadeMaisCasos + ' com aproximadamente ' +
+          str(numMaior100MilHabitantes) + ' casos confirmados por 100 mil habitantes')
 
 # FIM DA QUESTÃO #
 
@@ -41,11 +43,17 @@ def Questao4():
     print('Olá mundo')
 # FIM DA QUESTÃO 4 #
 
-# QUESTÃO 5 #
+# QUESTÃO 5: Qual a média de casos confirmados de Covid-19 nas três cidades do estado do Maranhão que apresentaram maior volume de contaminação? #
 
 
 def Questao5():
-    print('Olá mundo')
+    arquivo = open('.\storage\covid19_ma.csv', encoding="utf8")
+    linhas = csv.reader(arquivo)
+    next(linhas)
+    for linha in linhas:
+        print(linha)
+
+
 # FIM DA QUESTÃO #
 
 # QUESTÃO 6 #
