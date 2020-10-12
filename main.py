@@ -11,3 +11,4 @@ print('-='*26)
 print(' #######- BEM VINDO AO DESAFIO COVID - MA - AED #######')
 print('-='*26)
 menuPrincipal()
+

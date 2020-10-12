@@ -9,6 +9,7 @@ def menuPrincipal():
     print('--'*26)
     print('Entre com o número de uma ospção abaixo: ')
     while True:
+        print('1 - Qual cidade maranhense teve o maior número de casos por 100 mil habitantes?')
         print('2 - Qual foi o dia com maior número de novos casos?')
         print('3 - Quantos anos possuía a pessoa mais jovem a morrer de Covid-19 no estado do Maranhão?')
         print('4 - Quantos anos possuía a pessoa mais velha a morrer de Covid-19 no estado do Maranhão?')
