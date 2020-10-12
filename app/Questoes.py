@@ -1,5 +1,6 @@
 # IMPORTAÇÕES
 import csv
+from datetime import datetime
 
 # COLUNAS EM covid19_ma.csv : epidemiological_week,date,order_for_place,state,city,city_ibge_code,place_type,last_available_confirmed,last_available_confirmed_per_100k_inhabitants,new_confirmed,last_available_deaths,new_deaths,last_available_death_rate,estimated_population_2019,is_last,is_repeated
 
@@ -19,6 +20,7 @@ def Questao1():
                 cidadeMaisCasos = linha[4]
     print(cidadeMaisCasos + ' com aproximadamente ' +
           str(numMaior100MilHabitantes) + ' casos confirmados por 100 mil habitantes')
+
 
 # FIM DA QUESTÃO #
 
@@ -47,16 +49,47 @@ def Questao4():
 
 
 def Questao5():
-    arquivo = open('.\storage\covid19_ma.csv', encoding="utf8")
-    linhas = csv.reader(arquivo)
-    next(linhas)
+    # LEITURA DO(S) ARQUIVO(S) NECESSÁRIO(S)
+    arquivoCsv = open('.\storage\covid19_ma.csv', encoding="utf8")
+    objArquivoCsv = csv.reader(arquivoCsv)
+    next(objArquivoCsv)
+
+    # criação da lista que conterá os dados do arquivo
+    linhas = []
+    for linhaCsv in objArquivoCsv:
+        linhas.append(linhaCsv)
+
+    # 1º - Cria um dicionário relacionando o nome da cidade com o valor iniciador de quantidade de contaminados, dia do primeiro e do último  caso confirmado da COVID 19 na cidade
+    cidades = {}
     for linha in linhas:
-        print(linha)
+        if(linha[4] not in cidades.keys()):
+            primeiroLoopDataUltimoCaso = linha[1]
+        cidades[linha[4]] = [0, linha[1], primeiroLoopDataUltimoCaso]
+
+    # 2º Soma a quantidade de contaminados de cada cidade
+    for linha in linhas:
+        cidades[linha[4]][0] = cidades[linha[4]][0] + int(linha[9])
+    # 3º Descobrir as três cidades que possuem mais casos de contaminação e realizar média diária.
+    cidadesComContamindadosDec = sorted(
+        cidades.items(), key=lambda x: x[1], reverse=True)
+    podio = [0, 1, 2]
+    for posicao in podio:
+        posicaoPodioStr = str(posicao + 1)
+        nomeCidade = cidadesComContamindadosDec[posicao][0]
+        primeiroCasoData = datetime.strptime(
+            cidadesComContamindadosDec[posicao][1][1], '%Y-%m-%d')
+        ultimoCasoData = datetime.strptime(
+            cidadesComContamindadosDec[posicao][1][2], '%Y-%m-%d')
+        quantidadeDias = abs((primeiroCasoData - ultimoCasoData).days)
+        media = str(
+            round(cidadesComContamindadosDec[posicao][1][0] / quantidadeDias, 2))
+        print(posicaoPodioStr + "º lugar: " + nomeCidade +
+              ", com média de " + media + " casos/dia")
 
 
-# FIM DA QUESTÃO #
+# FIM DA QUESTÃO 5 #
 
-# QUESTÃO 6 #
+# QUESTÃO 6 : Em qual mês foi registrado a maior quantidade de casos confirmados de Covid-19 nas cidades do estado do Maranhão e qual o valor encontrado?#
 
 
 def Questao6():
