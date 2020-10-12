@@ -111,6 +111,7 @@ def Questao6():
     # 2º Alimenta o dicionário com a quantidade de casos confirmados em cada mês
     for linha in linhas:
         mesQuantidadeCasosConfirmados[linha[1][5:7]] = int(
+
             mesQuantidadeCasosConfirmados[linha[1][5:7]]) + int(linha[9])
 
     # 3º Ordena o dicionario em ordem decrescente
@@ -130,8 +131,33 @@ def Questao6():
 
 
 def Questao7():
-    print('Olá mundo')
-# FIM DA QUESTÃO 7 #
+    # LEITURA DO(S) ARQUIVO(S) NECESSÁRIO(S)
+    arquivoCsv = open(
+        '.\storage\obitos_detalhes_covid19_ma.csv', encoding="ISO-8859-1")
+    objArquivoCsv = csv.reader(arquivoCsv, delimiter=';')
+    next(objArquivoCsv)
+
+    # criação da lista que conterá os dados do arquivo
+    linhas = []
+    for linhaCsv in objArquivoCsv:
+        linhas.append(linhaCsv)
+
+    # 1º Cria um dicionário para guardar a quantidade de óbitos de Idosos, não idosos, e o total de pessoas
+    quantidadeIdososNaoIdosos = {'idosos': 0, 'nao-idosos': 0, 'total': 0}
+    for linha in linhas:
+        quantidadeIdososNaoIdosos['total'] = quantidadeIdososNaoIdosos['total'] + 1
+        if(int(linha[1][0:2]) >= 60):
+            quantidadeIdososNaoIdosos['idosos'] = quantidadeIdososNaoIdosos['idosos'] + 1
+        else:
+            quantidadeIdososNaoIdosos['nao-idosos'] = quantidadeIdososNaoIdosos['nao-idosos'] + 1
+
+    percentualIdosos = str(
+        quantidadeIdososNaoIdosos['idosos'] / quantidadeIdososNaoIdosos['total'])[2:4] + "%"
+    percentualNaoIdosos = str(
+        quantidadeIdososNaoIdosos['nao-idosos'] / quantidadeIdososNaoIdosos['total'])[2:4] + "%"
+
+    print("Durante o período da pesquisa os idosos representaram " +
+          percentualIdosos + " dos óbitos pela COVID-19 no estado do Maranhão")
 
 # QUESTÃO 8 #
 
