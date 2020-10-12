@@ -84,7 +84,7 @@ def Questao5():
         media = str(
             round(cidadesComContamindadosDec[posicao][1][0] / quantidadeDias, 2))
         print(posicaoPodioStr + "º lugar: " + nomeCidade +
-              ", com média de " + media + " casos/dia")
+              ", com média de " + media + " casos/dia.")
 
 
 # FIM DA QUESTÃO 5 #
@@ -93,10 +93,40 @@ def Questao5():
 
 
 def Questao6():
-    print('Olá mundo')
+    # LEITURA DO(S) ARQUIVO(S) NECESSÁRIO(S)
+    arquivoCsv = open('.\storage\covid19_ma.csv', encoding="utf8")
+    objArquivoCsv = csv.reader(arquivoCsv)
+    next(objArquivoCsv)
+
+    # criação da lista que conterá os dados do arquivo
+    linhas = []
+    for linhaCsv in objArquivoCsv:
+        linhas.append(linhaCsv)
+
+    # 1º Cria um dicionário para guardar a quantidade de casos confirmados em cada mês
+    mesQuantidadeCasosConfirmados = {}
+    for linha in linhas:
+        mesQuantidadeCasosConfirmados[linha[1][5:7]] = 0
+
+    # 2º Alimenta o dicionário com a quantidade de casos confirmados em cada mês
+    for linha in linhas:
+        mesQuantidadeCasosConfirmados[linha[1][5:7]] = int(
+            mesQuantidadeCasosConfirmados[linha[1][5:7]]) + int(linha[9])
+
+    # 3º Ordena o dicionario em ordem decrescente
+    mesesQuantidadeContaminadosDesc = sorted(
+        mesQuantidadeCasosConfirmados.items(), key=lambda x: x[1], reverse=True)
+
+    # 4º Exibe o mes com maior quantidade de afetados
+    mesComMaiorQuantidadeContaminados = str(
+        mesesQuantidadeContaminadosDesc[0][0][1:2])
+    quantidadeMesComMaiorQuantidadeContaminados = str(
+        mesesQuantidadeContaminadosDesc[0][1])
+    print("O " + mesComMaiorQuantidadeContaminados + "º mês possui a maior quantidade de casos confirmados de Covid 19 com " +
+          quantidadeMesComMaiorQuantidadeContaminados + " casos registrados.")
 # FIM DA QUESTÃO 6 #
 
-# QUESTÃO 7 #
+# QUESTÃO 7 : Qual o percentual de pessoas acima de 60 anos que foram levadas a óbito pelo Covid-19 no Maranhão em relação à não idosas no mês onde foi registrado a maior quantidade de casos?#
 
 
 def Questao7():
