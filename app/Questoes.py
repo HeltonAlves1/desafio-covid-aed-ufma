@@ -35,14 +35,37 @@ def Questao2():
 
 
 def Questao3():
-    print('Olá mundo')
+#Quantos anos possuía a pessoa mais jovem a morrer de Covid-19 no estado do Maranhão?
+arquivo = open('.\storage\covid19_ma.csv', 'r', encoding = "latin-1")
+idades = []
+for linha in arquivo.readlines():
+    pessoa = linha.split(';')
+    idade = pessoa[1].split()
+    if idade[1] == 'MESES':
+        idade = int(idade[0])/12
+    else:
+        idade = int(idade[0])
+    idades.append(idade)
+print(f'A pessoa mais jovem tinha {min(idades):.2f} anos')
 # FIM DA QUESTÃO 3 #
 
 # QUESTÃO 4 #
 
 
 def Questao4():
-    print('Olá mundo')
+#Quantos anos possuía a pessoa mais velha a morrer de Covid-19 no estado do Maranhão?
+arquivo = open('.\storage\covid19_ma.csv', 'r', encoding = "latin-1")
+idades = []
+for linha in arquivo.readlines():
+    pessoa = linha.split(';')
+    idade = pessoa[1].split()
+    if idade[1] == 'MESES':
+        idade = int(idade[0])/12
+    else:
+        idade = int(idade[0])
+    idades.append(idade)
+print(f'A pessoa mais jovem tinha {max(idades)} anos')
+
 # FIM DA QUESTÃO 4 #
 
 # QUESTÃO 5: Qual a média de casos confirmados de Covid-19 nas três cidades do estado do Maranhão que apresentaram maior volume de contaminação? #
